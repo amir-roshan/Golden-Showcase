@@ -6,6 +6,25 @@ export const AnimatedTitle = ({ title, containerClass }) => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {}, containerRef);
+    const titleAnimation = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "100 bottom",
+        end: "center bttom",
+        toggleActions: "play none none reverse",
+      },
+    });
+
+    titleAnimation.to(".animated-word", {
+      opacity: 1,
+      transform: "translate3d(0,0,0) rotateY(0deg) rotateX(0deg)",
+      ease: "power2.inOut",
+      stagger: 0.2,
+    });
+
+    return () => {
+      ctx.revert();
+    };
   }, []);
 
   return (
